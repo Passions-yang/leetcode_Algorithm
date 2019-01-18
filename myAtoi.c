@@ -7,42 +7,38 @@ int myAtoi(char* str) {
   int flag = 1,val = 0,retval = 0;
   int max = 1<<31,min = -1<< 31;
   int _max_cmp = (--max/10),_min_cmp = min/10;
+  while(*p == ' ' || *p == '\t') ++p;
   if(!p) return 0;
   if(*p == '-') {
     flag = -1;
     ++p;
-  }else if(*p == '-'){
+  }else if(*p == '+'){
     flag = 1;
     ++p;
   }
   while(*p != '\0'){
         if(*p < '0' ||
             *p > '9')
-            return 0;
+            break;
         val = *p - '0';
-         if(retval > _max_cmp &&
-            *(p+1) != '\0' &&
-            -1 == flag || 
-            (retval == _max_cmp &&
-              val > 8 )){
-                return 0x80000000; 
-         }
-        if((retval > _max_cmp &&
-            *(p+1) != '\0' &&
-            1 == flag )|| 
-            (retval == _max_cmp &&
-            val > 7)){
-            return 0x7FFFFFFF;
-         }        
+        if(flag== -1)
+            val = -val;
+        if(retval > _max_cmp ||
+            (retval == _max_cmp && val > 7))
+                return 0x7FFFFFFF; 
+        if(retval < _min_cmp ||
+            (retval == _min_cmp && val <-8))
+            return 0x80000000;        
         retval = retval * 10 + val;
         ++p;
   }
-  return flag == -1 ? -retval:retval;
+  return retval;
 }
 
 int main(int argc,char *argv[])
 {
-    int val = myAtoi("a");
+
+   int val = myAtoi("a");
     printf("a: %d\n",val);
     val = myAtoi("91283472332");
     printf("a: %d\n",val);
@@ -54,7 +50,16 @@ int main(int argc,char *argv[])
     printf("a: %d\n",val);
     val = myAtoi("0");
     printf("a: %d\n",val);
-    val = myAtoi("-42");
+    val = myAtoi("2147483648");
+    printf("a: %d\n",val);
+
+        val = atoi(" skds  -42");
+    printf("a:----- %d\n",val);
+        val = atoi("-42 jdsjdfjs");
+    printf("a:+++ %d\n",val);
+        val = myAtoi("-2147483648");
+    printf("a:fdfdfg %d\n",val);
+            val = myAtoi("2147483800");
     printf("a: %d\n",val);
     return 0;
 }

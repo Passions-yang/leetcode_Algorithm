@@ -97,8 +97,6 @@ int main(int argc,char *argv[])
     struct ListNode * l1 = NULL, * l2 = NULL,*l3 = NULL;
     struct ListNode * l4[3];
     struct ListNode * tail = NULL;
-    int a = atoi("a");
-    printf("a: %d\n",a);
     tail = create_list(&l1,8521);
     print_list(l1);
     tail = create_list(&l2,621);

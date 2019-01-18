@@ -62,7 +62,7 @@ void delete_child(void * this)
     printf("子类析构函数\n");
     temp = NULL;
 }
-/*父类构造函数*/
+/*父类构造函�?*/
 struct _parent * new_Parent(int data)
 {
     struct _parent * temp = (struct _parent *)malloc(sizeof(struct _parent));
@@ -72,18 +72,18 @@ struct _parent * new_Parent(int data)
     printf("父类构造函数\n");
     return temp;
 }
-/*子类构造函数*/
+/*子类构造函�?*/
 struct _child * new_child(int data)
 {
     struct _child * temp = (struct _child *)malloc(sizeof(struct _child));
     temp->data_child = data;
     temp->parent.get_data = (void (*)(void *))get_data_Child;
     temp->parent._delete = (void (*)(void *))delete_child;
-    printf("子类构造函数 child : %d\n",temp->data_child);
+    printf("子类构造函�?child : %d\n",temp->data_child);
     return temp;
 }
 
-/*测试多态实例*/
+/*测试多态实�?*/
 int main(int argc,char *argv[])
 {
     struct _parent * base = new_Parent(100);

@@ -91,11 +91,23 @@ struct ListNode* mergeKLists(struct ListNode** lists, int listsSize) {
     return head;
 }
 
+struct ListNode* mergeKLists1(struct ListNode** lists, int listsSize) {
+        if (listsSize == 0)
+            return NULL;
+        int k = listsSize;
+        while (k > 1) {            
+            for (int i = 0; i < k / 2; i++) 
+                lists[i] = mergeTwoLists(lists[i], lists[i + (k + 1) / 2]);
+            k = (k + 1) / 2;
+        }
+        return lists[0];
+}
+
 
 int main(int argc,char *argv[])
 {
-    struct ListNode * l1 = NULL, * l2 = NULL,*l3 = NULL;
-    struct ListNode * l4[3];
+    struct ListNode * l1 = NULL, * l2 = NULL,*l3 = NULL,*l5 = NULL,*l6 = NULL;
+    struct ListNode * l4[5];
     struct ListNode * tail = NULL;
     tail = create_list(&l1,8521);
     print_list(l1);
@@ -103,13 +115,19 @@ int main(int argc,char *argv[])
     print_list(l2);
     tail = create_list(&l3,954);
     print_list(l3);
+    tail = create_list(&l5,954);
+    print_list(l5);
+    tail = create_list(&l6,954);
+    print_list(l6);
 //    l3 = mergeTwoLists(l1,l2);
 //    print_list(l3);
     l4[0] = l1;
     l4[1] = l2;
     l4[2] = l3;
-//    tail = mergeKLists(l4,3);
-//    print_list(tail);
+    l4[3] = l5;
+    l4[4] = l6;
+    l3 = mergeKLists1(l4,5);
+    print_list(l3);
     return 0;
 }
 

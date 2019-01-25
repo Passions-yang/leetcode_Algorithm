@@ -5,8 +5,6 @@
 int myAtoi(char* str) {
   char * p = str;
   int flag = 1,val = 0,retval = 0;
-  int max = 1<<31,min = -1<< 31;
-  int _max_cmp = (--max/10),_min_cmp = min/10;
   while(*p == ' ' || *p == '\t') ++p;
   if(!p) return 0;
   if(*p == '-') {
@@ -17,23 +15,16 @@ int myAtoi(char* str) {
     ++p;
   }
   while(*p != '\0'){
-        if(*p < '0' ||
-            *p > '9')
-            break;
-        val = *p - '0';
-        if(flag== -1)
-            val = -val;
-        if(retval > _max_cmp ||
-            (retval == _max_cmp && val > 7))
-                return 0x7FFFFFFF; 
-        if(retval < _min_cmp ||
-            (retval == _min_cmp && val <-8))
-            return 0x80000000;        
+        if(*p < '0' || *p > '9') break;
+        val = *p++ - '0';
+        if(flag== -1) val = -val;
+        if(retval > 214748364 || (retval == 214748364 && val > 7)) return 0x7FFFFFFF; 
+        if(retval < -214748364 || (retval == -214748364 && val <-8)) return 0x80000000;        
         retval = retval * 10 + val;
-        ++p;
   }
   return retval;
 }
+
 
 int main(int argc,char *argv[])
 {
